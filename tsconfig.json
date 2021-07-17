@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "lib":["es2020","dom","ES2016"],
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "target": "es6",
+        "strict": false,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "noImplicitThis": false,
+        "outDir": "./dist",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "declaration": true,
+        "declarationDir": "./dist/types",
+        "sourceMap": true
+    },
+    "include": [
+      "src/**/*.ts",
+      "spec/**/*.ts",
+      "spec_int/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
