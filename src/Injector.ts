@@ -3,7 +3,7 @@ import {ResolveCallbacks,Registration,IRegistrationCallback
 import {lifetimeSymbol} from './Symbols';
 import {initializeObject} from './Initializers';
 import { ProxyFactory,ProxyBuilder } from './Proxy';
-import {IInjector} from './Interface';
+import {Constructor, IInjector} from './Interface';
 import { ILifetimeManager,SingletonLifetimeManager,PerRequestLifetimeManager } from './Lifetime';
 export class Injector implements IInjector {
 
@@ -270,7 +270,7 @@ export class Injector implements IInjector {
         catch{}
     }
     
-    ResolveT<T>(key:{new():T}):T{
+    ResolveT<T>(key:Constructor<T>):T{
         return this.Resolve<T>(key);
     }
 

@@ -256,6 +256,15 @@ describe('jsi', () => {
         expect(firstPerson).toBe(p2);
 
     });
+
+    it('can ResolveT objects with and without dependencies',()=>{
+        var inj = jsi.ChildScope();
+        const cls = inj.ResolveT(MyClass);
+        expect(cls.name).toBe('myclass');
+        const depClass= inj.ResolveT(InjClass);
+        expect(depClass.cls.name).toBe('myclass');
+
+    })
     describe('proxies',()=>{
         it('creates proxy objects if a proxy is configured for the Resolved key',()=>{
             var inj =jsi.ChildScope();

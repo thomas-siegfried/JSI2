@@ -18,7 +18,7 @@ export interface IInjector{
     
     RegisterCallback(callback: IRegistrationCallback);
     Resolve<T>(key: any): T;
-    ResolveT<T>(key:{new():T}):T;
+    ResolveT<T>(key:Constructor<T>):T;
     ChildScope(): IInjector;
     Proxy(key:any):ProxyBuilder;
 
@@ -31,4 +31,8 @@ export interface IInjector{
 
 export interface FactoryMethod {
     (...params: any[]): any;
+}
+
+export interface Constructor<T>{
+    new (...args:any[]):T;
 }
