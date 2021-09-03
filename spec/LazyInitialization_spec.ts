@@ -1,4 +1,4 @@
-import { Root, Lazy, Injector, Inject, Transient } from "../src/index";
+import { Root, Injector, Inject, Transient, Lazy } from "../src/index";
 
 import "reflect-metadata";
 class Service {}
@@ -13,20 +13,32 @@ class SubService extends Service {
 class NamedService {
   public name: string;
 }
-
+@Inject()
 class Client2 {
-  constructor() {}
+  constructor(lazy: Lazy) {
+    lazy
+      .For(this)
+      .Prop(
+        (x) => x.inlineInitService,
+        NamedService,
+        (svc) => (svc.name = this.ClientName)
+      )
+      .Prop(
+        (x) => x.instanceInitService,
+        NamedService,
+        (svc) => this.InitSerivce(svc)
+      )
+      .Prop(
+        (x) => x.service3,
+        NamedService,
+        (svc) => this.InitSerivce(svc)
+      );
+  }
 
   ClientName: string;
 
-  @Lazy({
-    init: (ctx: Client2, svc: NamedService) => (svc.name = ctx.ClientName),
-  })
   inlineInitService: NamedService;
-
-  @Lazy({ init: (ctx: Client2, svc: NamedService) => ctx.InitSerivce(svc) })
   instanceInitService: NamedService;
-  @Lazy((clt, svc) => clt.InitSerivce(svc))
   service3: NamedService;
 
   private InitSerivce(svc: NamedService) {
@@ -36,15 +48,20 @@ class Client2 {
 
 @Inject()
 class Client {
-  constructor(public svc1: Service) {}
-  @Lazy({ key: Service })
+  constructor(public svc1: Service, bld: Lazy) {
+    bld
+      .For(this)
+      .Prop((x) => x.service, Service)
+      .Prop((x) => x.service2, Service);
+  }
   service: Service;
-  @Lazy()
   service2: Service;
 }
-
+@Inject()
 class Client3 {
-  @Lazy({ key: SubService })
+  constructor(bld: Lazy) {
+    bld.For(this).Prop((x) => x.service, SubService);
+  }
   service: Service;
 }
 

@@ -7,7 +7,6 @@ import {
   RegisterOptions,
 } from "./Utilities";
 import { lifetimeSymbol } from "./Symbols";
-import { initializeObject } from "./Initializers";
 import { ProxyFactory, ProxyBuilder } from "./Proxy";
 import { Constructor, IInjector } from "./Interface";
 import {
@@ -312,7 +311,6 @@ export class Injector implements IInjector {
   }
 
   PrepObject(value: any, key: any): any {
-    initializeObject(value, this);
     var bld = this.getProxy(key);
     if (bld) {
       value = bld.proxy(value);

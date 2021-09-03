@@ -1,51 +1,55 @@
-import {IInjector} from './Interface';
-import 'reflect-metadata'
-import {getInitializers} from './Initializers';
-export function Lazy<TYPE=any,PROP=any>(args?:ILazyOptions<TYPE,PROP>|InitFunction<TYPE,PROP>){
-    var options : ILazyOptions<TYPE,PROP> = {};
-    if(args){
-        if(typeof args=="function"){
-            options.init=args;
-        } else{
-            options = args;
+import { Inject } from "./Decorators";
+import { Injector } from "./Injector";
+
+@Inject()
+export class Lazy {
+  constructor(private inj: Injector) {}
+  For<T>(t: T) {
+    return new LazyHelper<T>(this.inj, t);
+  }
+}
+
+export class LazyHelper<T> {
+  constructor(private inj: Injector, private host: T) {}
+
+  Prop<K>(
+    key: (t: T) => K,
+    injKey: any,
+    init?: (val: K) => void
+  ): LazyHelper<T> {
+    var propName = parseFunction(key);
+    var prototype = Object.getPrototypeOf(this.host);
+
+    var propType = injKey;
+    var factoryMethod = () => {
+      var value: K = this.inj.Resolve<K>(propType);
+      if (init) {
+        init(value);
+      }
+      return value;
+    };
+    //next setup a property descriptor with this get value
+    let val: K,
+      resolved: boolean = false;
+    Object.defineProperty(this.host, propName, {
+      get: () => {
+        if (!resolved) {
+          val = factoryMethod();
+          resolved = true;
         }
-    }
-    return function(prototype:Object,propName:string){
-        let key=options.key;   //key can be specified in args   
-        if(!key){
-            key=Reflect.getMetadata("design:type",prototype,propName);  //read key from prop type
-        }
-        let initializers = getInitializers(prototype);
-        //create an initializer which overrides the property with a lazy property
-        initializers.push((inj:IInjector,target:any)=>{
-            var value =null;
-            let propOptions ={
-                get : function(){
-                    if(!value){
-                        value=inj.Resolve(key);
-                        //inline init function provided, call it with the created object and this context
-                        if(options.init){  
-                            options.init(target,value);
-                        }
-                    }
-                    return value;
-                },
-                enumerable:true,
-                configurable:true
-            };
-            Object.defineProperty(target,propName,propOptions);
-        });
-    }
+        return val;
+      },
+    });
+    return this;
+  }
 }
 
-
-export interface ILazyOptions<T,K>{
-    key?:any;
-    init?:InitFunction<T,K>
+//brute force attempt to pull a member from a function simillar to Expression in C#
+//expects functions in the form of d=>d.Xyz or (d)=>d.abc etc
+function parseFunction(fn: (i: any) => any): string {
+  let txt = fn.toString();
+  let prm = txt.substring(0, txt.indexOf("=>")).replace(/[(|)]/g, "").trim();
+  let rest = txt.substring(txt.indexOf("=>") + 2).trim();
+  let member = rest.substring(prm.length + 1);
+  return member;
 }
-
-export interface InitFunction<T,K>{
-    (obj:T,val:K):void
-}
-
-
