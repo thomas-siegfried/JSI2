@@ -6,7 +6,7 @@ import {
   Util,
   RegisterOptions,
 } from "./Utilities";
-import { lifetimeSymbol } from "./Symbols";
+import { lifetimeSymbol, InjectSymbol } from "./Symbols";
 import { ProxyFactory, ProxyBuilder } from "./Proxy";
 import { Constructor, IInjector } from "./Interface";
 import {
@@ -279,7 +279,7 @@ export class Injector implements IInjector {
   private GetDependenciesFromType(key: any) {
     if (typeof key === "function") {
       //resolve inject params from symbol
-      var injectTypes = Reflect.getMetadata("inject:paramtypes", key);
+      var injectTypes = key[InjectSymbol]; // Reflect.getMetadata("inject:paramtypes", key);
       if (injectTypes) {
         return injectTypes;
       }

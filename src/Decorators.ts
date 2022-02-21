@@ -1,4 +1,4 @@
-import { lifetimeSymbol } from "./Symbols";
+import { lifetimeSymbol, InjectSymbol } from "./Symbols";
 import {
   PerContextLifetimeManager,
   PerRequestLifetimeManager,
@@ -7,12 +7,17 @@ import {
 //Adds injection metadata from constructor parameters
 export function Inject(...params: any[]) {
   return function (target: any) {
-    var injectTypes = Reflect.getMetadata("inject:paramtypes", target);
-    if (!injectTypes) {
-      injectTypes = Reflect.getMetadata("design:paramtypes", target);
-      Reflect.defineMetadata("inject:paramtypes", injectTypes, target);
+    var injectTypes = params;
+    if (injectTypes.length <= 0) {
+      injectTypes = getInjectParams(target);
     }
+    target[InjectSymbol] = injectTypes;
   };
+}
+
+function getInjectParams(obj: any) {
+  //return symbol value or metadata
+  return obj[InjectSymbol] || Reflect.getMetadata("design:paramtypes", obj);
 }
 
 //replace the type used for an injected param with another type
@@ -22,26 +27,9 @@ export function InjectParam(source: any) {
     propertyKey: string | symbol,
     parameterIndex: number
   ) {
-    var injectTypes = Reflect.getMetadata(
-      "inject:paramtypes",
-      target,
-      propertyKey
-    );
-    if (!injectTypes) {
-      var paramTypes = Reflect.getMetadata(
-        "design:paramtypes",
-        target,
-        propertyKey
-      ).slice(0);
-      Reflect.defineMetadata(
-        "inject:paramtypes",
-        paramTypes,
-        target,
-        propertyKey
-      );
-      injectTypes = paramTypes;
-    }
-    injectTypes[parameterIndex] = source;
+    var paramTypes = getInjectParams(target);
+    paramTypes[parameterIndex] = source;
+    target[InjectSymbol] = paramTypes;
   };
 }
 
