@@ -1,6 +1,5 @@
 import { Root, Injector, Inject, Transient, Lazy } from "../src/index";
 
-import "reflect-metadata";
 class Service {}
 
 class SubService extends Service {
@@ -122,20 +121,20 @@ describe("Lazy Initialization", () => {
   it("initializes each instance of a non-singleton", () => {
     //test for initialization occuring even on new objects created by a resolution
     jsi.RegisterTransient(Client2);
-    var c1 = jsi.ResolveT(Client2);
+    var c1 = jsi.Resolve(Client2);
     c1.ClientName = "test1";
     expect(c1.service3).not.toBeNull();
-    var c2 = jsi.ResolveT(Client2);
+    var c2 = jsi.Resolve(Client2);
     c2.ClientName = "test1";
     expect(c2.service3).toBeDefined();
     expect(c1).not.toBe(c2);
   });
 
   it("ties lazy properties to the injector object was created from", () => {
-    var c1 = jsi.ResolveT(Client2);
+    var c1 = jsi.Resolve(Client2);
 
     var inj = new Injector();
-    var c2 = inj.ResolveT(Client2);
+    var c2 = inj.Resolve(Client2);
     expect(c1).not.toBe(c2);
     expect(c1.service3).not.toBe(c2.service3);
   });

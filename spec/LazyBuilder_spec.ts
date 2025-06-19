@@ -29,7 +29,7 @@ describe("LazyBuilder", () => {
     jsi = new Injector();
   });
   it("will fail if we require a circular dependency", () => {
-    var a = jsi.ResolveT(ServiceA);
+    var a = jsi.Resolve(ServiceA);
     expect(a.B.C.A).toBeDefined();
     expect(a.name).toBe("test");
   });

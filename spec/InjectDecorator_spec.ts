@@ -14,7 +14,7 @@ describe("Inject decorator", () => {
       constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
-    let c = j.ResolveT(Test);
+    let c = j.Resolve(Test);
     expect(c.a).toBeInstanceOf(SubA);
     expect(c.b).toBeInstanceOf(SubC);
   });
@@ -28,7 +28,7 @@ describe("Inject decorator", () => {
       constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
-    let c = j.ResolveT(Test);
+    let c = j.Resolve(Test);
     expect(c.a).toBeInstanceOf(SubA);
     expect(c.b).toBeInstanceOf(SubC);
   });
@@ -42,7 +42,7 @@ describe("Inject decorator", () => {
       constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
-    let c = j.ResolveT(Test);
+    let c = j.Resolve(Test);
     expect(c.a).toBeInstanceOf(SubA);
     expect(c.b).toBeInstanceOf(SubC);
   });
@@ -57,7 +57,7 @@ describe("Inject decorator", () => {
       constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
-    let c = j.ResolveT(Test);
+    let c = j.Resolve(Test);
     expect(c.a).toBeInstanceOf(SubA);
     expect(c.b).toBeInstanceOf(SubC);
   });

@@ -26,7 +26,6 @@ export interface IInjector {
 
   RegisterCallback(callback: IRegistrationCallback);
   Resolve<T>(key: any): T;
-  ResolveT<T>(key: Constructor<T>): T;
   ChildScope(): IInjector;
   Proxy(key: any): ProxyBuilder;
 

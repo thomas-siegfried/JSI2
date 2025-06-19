@@ -16,30 +16,30 @@ describe("SampleTypes", () => {
   });
   it("can resolve imported types", () => {
     let j = jsi.ChildScope();
-    let p = j.Resolve<Person>(Person);
-    let s = j.Resolve<Service>(Service);
+    let p = j.Resolve(Person);
+    let s = j.Resolve(Service);
     expect(p).toBeDefined();
     expect(s).toBeDefined();
   });
 
   it("resolves alias as the same type", () => {
     let j = jsi.ChildScope();
-    let p1 = j.Resolve<Person>(Person);
-    let p2 = j.Resolve<Person>(Prs);
+    let p1 = j.Resolve(Person);
+    let p2 = j.Resolve(Prs);
     expect(p1).toBe(p2);
   });
 
   it("same type resolved in different context should be the same", () => {
     let j = jsi.ChildScope();
-    let s1 = j.Resolve<Service>(Service);
-    let p1 = j.Resolve<Person>(Person);
+    let s1 = j.Resolve(Service);
+    let p1 = j.Resolve(Person);
     expect(s1).toBe(p1.svc);
   });
 
   it("bootstraps correctly", () => {
     let j = jsi.ChildScope();
     j.RegisterAutoInit({ Key: PersonNamer });
-    let p1 = j.Resolve<Person>(Person);
+    let p1 = j.Resolve(Person);
     expect(p1.firstname).toBe("Smithfeld");
   });
 

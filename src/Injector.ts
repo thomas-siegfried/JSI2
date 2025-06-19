@@ -6,7 +6,7 @@ import {
   Util,
   RegisterOptions,
 } from "./Utilities";
-import { lifetimeSymbol, InjectSymbol } from "./Symbols";
+import { lifetimeSymbol, InjectSymbol, ProxySymbol } from "./Symbols";
 import { ProxyFactory, ProxyBuilder } from "./Proxy";
 import { Constructor, IInjector } from "./Interface";
 import {
@@ -279,7 +279,7 @@ export class Injector implements IInjector {
   private GetDependenciesFromType(key: any) {
     if (typeof key === "function") {
       //resolve inject params from symbol
-      var injectTypes = key[InjectSymbol]; // Reflect.getMetadata("inject:paramtypes", key);
+      var injectTypes = key[InjectSymbol];
       if (injectTypes) {
         return injectTypes;
       }
@@ -301,9 +301,9 @@ export class Injector implements IInjector {
     } catch {}
   }
 
-  ResolveT<T>(key: Constructor<T>): T {
-    return this.Resolve<T>(key);
-  }
+  // ResolveT<T>(key: Constructor<T>): T {
+  //   return this.Resolve<T>(key);
+  // }
 
   SaveResolution(key: any, res: Resolution) {
     if (this.isScopedContext) this.Parent.SaveResolution(key, res);
@@ -311,14 +311,15 @@ export class Injector implements IInjector {
   }
 
   PrepObject(value: any, key: any): any {
-    var bld = this.getProxy(key);
+    var bld: ProxyBuilder = this.getProxy(key);
     if (bld) {
       value = bld.proxy(value);
     }
     return value;
   }
-
-  public Resolve<T>(key: any): T {
+  Resolve<T>(key: Constructor<T>): T;
+  Resolve<T>(key: any): T;
+  public Resolve<T>(key: any | Constructor<T>): T {
     this.invokeCallback((cb) => cb.Resolve && cb.Resolve(key, this.BuildStack));
     this.EnsureInitialized();
 
@@ -359,7 +360,11 @@ export class Injector implements IInjector {
     return value;
   }
 
-  private getProxy(key: any) {
+  public IsProxy(value: any) {
+    return !!value[ProxySymbol];
+  }
+
+  private getProxy(key: any): ProxyBuilder {
     var builder = this._proxyFactory.getBuilder(key);
     if (!builder && this.Parent) {
       builder = this.Parent.getProxy(key);

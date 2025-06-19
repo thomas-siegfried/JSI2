@@ -1,4 +1,3 @@
-import "reflect-metadata";
 export * from "./Injector";
 export * from "./Decorators";
 export * from "./Utilities";

@@ -1,6 +1,6 @@
 {
   "name": "@thomas-siegfried/jsi",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
   "types": "dist/types/index.d.ts",
@@ -15,9 +15,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "reflect-metadata": "^0.1.13"
-  },
   "devDependencies": {
     "@types/jasmine": "^5.1.8",
     "gulp": "^5.0.1",

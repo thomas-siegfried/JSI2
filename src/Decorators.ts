@@ -17,7 +17,7 @@ export function Inject(...params: any[]) {
 
 function getInjectParams(obj: any) {
   //return symbol value or metadata
-  return obj[InjectSymbol] || Reflect.getMetadata("design:paramtypes", obj);
+  return obj[InjectSymbol];
 }
 
 //replace the type used for an injected param with another type
