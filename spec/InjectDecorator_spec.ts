@@ -9,8 +9,9 @@ describe("Inject decorator", () => {
     class SubA {}
     class SubB {}
     class SubC extends SubB {}
+    @Inject(SubA, SubC)
     class Test {
-      constructor(public a: SubA, @InjectParam(SubC) public b: SubB) {}
+      constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
     let c = j.ResolveT(Test);
@@ -22,9 +23,9 @@ describe("Inject decorator", () => {
     class SubA {}
     class SubB {}
     class SubC extends SubB {}
-    @Inject()
+    @Inject(SubA, SubC)
     class Test {
-      constructor(public a: SubA, @InjectParam(SubC) public b: SubB) {}
+      constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
     let c = j.ResolveT(Test);
@@ -53,7 +54,7 @@ describe("Inject decorator", () => {
     class SubD extends SubB {}
     @Inject(SubA, SubC)
     class Test {
-      constructor(public a: SubA, @InjectParam(SubD) public b: SubB) {}
+      constructor(public a: SubA, public b: SubB) {}
     }
     let j = jsi.ChildScope();
     let c = j.ResolveT(Test);

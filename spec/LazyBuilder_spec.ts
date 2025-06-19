@@ -1,7 +1,7 @@
 import { Injector, Inject } from "../src";
 import { Lazy } from "../src/Lazy";
 
-@Inject()
+@Inject(Lazy)
 class ServiceC {
   constructor(lazy: Lazy) {
     lazy.For(this).Prop(
@@ -13,11 +13,11 @@ class ServiceC {
   name: string = "test";
   public readonly A: ServiceA;
 }
-@Inject()
+@Inject(ServiceC)
 class ServiceB {
   constructor(public C: ServiceC) {}
 }
-@Inject()
+@Inject(ServiceB)
 class ServiceA {
   constructor(public B: ServiceB) {}
   name: string = "";

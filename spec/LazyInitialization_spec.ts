@@ -13,7 +13,7 @@ class SubService extends Service {
 class NamedService {
   public name: string;
 }
-@Inject()
+@Inject(Lazy)
 class Client2 {
   constructor(lazy: Lazy) {
     lazy
@@ -46,7 +46,7 @@ class Client2 {
   }
 }
 
-@Inject()
+@Inject(Service, Lazy)
 class Client {
   constructor(public svc1: Service, bld: Lazy) {
     bld
@@ -57,7 +57,7 @@ class Client {
   service: Service;
   service2: Service;
 }
-@Inject()
+@Inject(Lazy)
 class Client3 {
   constructor(bld: Lazy) {
     bld.For(this).Prop((x) => x.service, SubService);
@@ -121,7 +121,6 @@ describe("Lazy Initialization", () => {
 
   it("initializes each instance of a non-singleton", () => {
     //test for initialization occuring even on new objects created by a resolution
-    jsi.callbacks.Resolve = (key) => console.log(key);
     jsi.RegisterTransient(Client2);
     var c1 = jsi.ResolveT(Client2);
     c1.ClientName = "test1";

@@ -1,7 +1,7 @@
 import { Inject } from "./Decorators";
 import { Injector } from "./Injector";
 
-@Inject()
+@Inject(Injector)
 export class Lazy {
   constructor(private inj: Injector) {}
   For<T>(t: T) {
