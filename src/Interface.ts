@@ -19,8 +19,8 @@ export interface IInjector {
 
   RegisterInstance(key: any, value: any): Registration;
   //add dependencies here
-  RegisterTransient(key: any, factory: any, dependencies: any[]): Registration;
-  RegisterPerContext(key: any, factory: any, dependencies: any[]): Registration;
+  RegisterTransient(key: any, dependencies: any[], factory: any): Registration;
+  RegisterPerContext(key: any, dependencies: any[], factory: any): Registration;
   //just call the register options with the init bit set
   RegisterAutoInit(options: RegisterOptions): void;
 

@@ -1,6 +1,5 @@
 import * as JSI from "../src/index";
-import { Inject } from "../src/index";
-const jsi = JSI.default.Root;
+import { Inject, Root } from "../src/index";
 
 import createSpy = jasmine.createSpy;
 
@@ -15,7 +14,7 @@ class MyService {
 
 describe("jsi callbacks", () => {
   it("executes callback when Resolve is called", () => {
-    let j = jsi.ChildScope();
+    let j = Root.ChildScope();
     let spy = createSpy();
     j.callbacks.Resolve = spy;
     j.Resolve<MyClass>(MyClass);
@@ -23,7 +22,7 @@ describe("jsi callbacks", () => {
   });
 
   it("Executes Resolved callback with key and resolved object", () => {
-    let j = jsi.ChildScope();
+    let j = Root.ChildScope();
     let spy = createSpy();
     j.callbacks.Resolved = spy;
     let obj = j.Resolve<MyClass>(MyClass);
@@ -31,7 +30,7 @@ describe("jsi callbacks", () => {
   });
 
   it("calls Resolved callback for dependency resolutions", () => {
-    let j = jsi.ChildScope();
+    let j = Root.ChildScope();
     let spy = createSpy();
     j.callbacks.Resolved = spy;
     let obj = j.Resolve<MyService>(MyService);
@@ -39,7 +38,7 @@ describe("jsi callbacks", () => {
   });
 
   it("executes callbacks on parent injectors also", () => {
-    let j = jsi.ChildScope();
+    let j = Root.ChildScope();
     let j2 = j.ChildScope();
     let spyResolve = createSpy();
     let spyResolve2 = createSpy();

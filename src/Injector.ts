@@ -188,8 +188,8 @@ export class Injector implements IInjector {
 
   public RegisterTransient(
     key: any,
-    factory: any = null,
-    dependencies: any[] = null
+    dependencies: any[] = null,
+    factory: any = null
   ): Registration {
     return this.RegisterOptions({
       Key: key,
@@ -201,8 +201,8 @@ export class Injector implements IInjector {
 
   public RegisterPerContext(
     key: any,
-    factory: any = null,
-    dependencies: any[] = null
+    dependencies: any[] = null,
+    factory: any = null
   ): Registration {
     return this.RegisterOptions({
       Key: key,
@@ -319,7 +319,7 @@ export class Injector implements IInjector {
   }
   Resolve<T>(key: Constructor<T>): T;
   Resolve<T>(key: any): T;
-  public Resolve<T>(key: any | Constructor<T>): T {
+  public Resolve<T = any>(key: any | Constructor<T>): T {
     this.invokeCallback((cb) => cb.Resolve && cb.Resolve(key, this.BuildStack));
     this.EnsureInitialized();
 
@@ -376,11 +376,12 @@ export class Injector implements IInjector {
   public Proxy(key: any): ProxyBuilder {
     return this._proxyFactory.builder(key);
   }
-
+  //child scopes share registrations with parent, but not resolutions, meaning they will never shared a created instance
   public ChildScope(): Injector {
     return new Injector(this, this._global);
   }
-
+  //scoped context uses parent for resolutions, so will share resolutions of singleton objects
+  //TODO: we probably want to get rid of ChildScope() as this is most likely the desired behavior
   public CreateScopedContext(): Injector {
     return new Injector(this, this._global, true);
   }

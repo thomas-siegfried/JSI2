@@ -32,5 +32,6 @@ describe("LazyBuilder", () => {
     var a = jsi.Resolve(ServiceA);
     expect(a.B.C.A).toBeDefined();
     expect(a.name).toBe("test");
+    expect(a).toBe(a.B.C.A);
   });
 });

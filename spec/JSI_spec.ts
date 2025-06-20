@@ -32,7 +32,7 @@ describe("jsi", () => {
   });
 
   it("returns null with invalid key", () => {
-    var i = jsi.ChildScope();
+    var i = new JSI.Injector();
     var obj = i.Resolve("test");
     expect(obj).toBeFalsy();
   });
@@ -74,6 +74,19 @@ describe("jsi", () => {
     i.Register(MyClass);
     var injClass = <InjClass>i.Resolve(InjClass);
     expect(injClass.cls.name).toBe("myclass");
+  });
+
+  it("allows dependencies to be functions", () => {
+    var i = jsi.ChildScope();
+    function getValue() {
+      return { x: 5 };
+    }
+    class MyService {
+      constructor(public val: any) {}
+    }
+    i.Register(MyService, [getValue]);
+    const svc = i.Resolve(MyService);
+    expect(svc.val.x).toBe(5);
   });
 
   it("allows resolution of unregistered types", () => {
@@ -252,7 +265,7 @@ describe("jsi", () => {
     expect(firstPerson).toBe(p2);
   });
 
-  it("can ResolveT objects with and without dependencies", () => {
+  it("can Resolve objects with and without dependencies", () => {
     var inj = jsi.ChildScope();
     const cls = inj.Resolve(MyClass);
     expect(cls.name).toBe("myclass");
@@ -289,6 +302,22 @@ describe("jsi", () => {
       var prs = jsi.Resolve(Person);
       expect(jsi.IsProxy(svc)).toBeTrue();
       expect(jsi.IsProxy(prs)).toBeFalse();
+    });
+
+    it("separates globals between two different child scopes", () => {
+      var c1 = jsi.ChildScope();
+      var c2 = jsi.ChildScope();
+      var x1 = c1.Resolve(MyClass);
+      var x2 = c2.Resolve(MyClass);
+      expect(x1).not.toBe(x2);
+    });
+    it("does not separate globals between two different scoped contexts", () => {
+      //this is how they are different
+      var c1 = jsi.CreateScopedContext();
+      var c2 = jsi.CreateScopedContext();
+      var x1 = c1.Resolve(MyClass);
+      var x2 = c2.Resolve(MyClass);
+      expect(x1).toBe(x2);
     });
   });
 });

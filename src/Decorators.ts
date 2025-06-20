@@ -3,6 +3,7 @@ import {
   PerContextLifetimeManager,
   PerRequestLifetimeManager,
 } from "./Lifetime";
+import { Root } from "./index";
 
 //Adds injection metadata from constructor parameters
 export function Inject(...params: any[]) {
@@ -35,7 +36,7 @@ export function InjectParam(source: any) {
 
 //registers a class so that it is 'Required' before any other requested objects
 export function Bootstrap(target: any) {
-  jsi.RegisterAutoInit({ Key: target });
+  Root.RegisterAutoInit({ Key: target });
 }
 
 //mark this class as a transient type, as opposed to the default singleton behavior

@@ -70,13 +70,13 @@ describe("Lazy Initialization", () => {
     jsi = Root.ChildScope();
   });
   it("injects a lazy property as soon as it is called", () => {
-    var client = jsi.Resolve<Client>(Client);
+    var client = jsi.Resolve(Client);
     expect(client.service).toBeDefined();
   });
 
   it("requiring an object twice does not cause properties to be redefined", () => {
-    var client = jsi.Resolve<Client>(Client);
-    var client = jsi.Resolve<Client>(Client);
+    var client = jsi.Resolve(Client);
+    var client = jsi.Resolve(Client);
   });
 
   it("can perform constructor injection and lazy injection on the same object", () => {
