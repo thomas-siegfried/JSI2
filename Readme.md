@@ -77,11 +77,11 @@ JSI follows a bsic register/resolve patttern simmilar to traditional IOC contain
 The simplest way to use JSI is to create classes with dependencies in their constructor, and use the @Inject decorator to register dependencies.
 
 ```typescript
-class MyService() {
+class MyService {
   this.Name = "Service Name";
 }
 @Inject(MyService)
-class MyClass() {
+class MyClass {
   constructor(private svc:MyService){}
   this.ServiceName = svc.Name;
 }

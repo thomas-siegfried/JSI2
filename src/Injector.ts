@@ -8,7 +8,7 @@ import {
 } from "./Utilities";
 import { lifetimeSymbol, InjectSymbol, ProxySymbol } from "./Symbols";
 import { ProxyFactory, ProxyBuilder } from "./Proxy";
-import { Constructor, IInjector } from "./Interface";
+import { Constructor, FactoryMethod, IInjector } from "./Interface";
 import {
   ILifetimeManager,
   SingletonLifetimeManager,
@@ -317,9 +317,9 @@ export class Injector implements IInjector {
     }
     return value;
   }
-  Resolve<T>(key: Constructor<T>): T;
-  Resolve<T>(key: any): T;
-  public Resolve<T = any>(key: any | Constructor<T>): T {
+  Resolve<T>(key: Constructor<T> | FactoryMethod<T>): T;
+  Resolve<T = any>(key: string): T;
+  public Resolve<T = any>(key: any): T {
     this.invokeCallback((cb) => cb.Resolve && cb.Resolve(key, this.BuildStack));
     this.EnsureInitialized();
 

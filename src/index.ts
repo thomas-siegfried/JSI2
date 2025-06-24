@@ -3,6 +3,7 @@ export * from "./Decorators";
 export * from "./Utilities";
 export * from "./Lifetime";
 export * from "./Lazy";
+export * from "./Interface";
 import { Inject, InjectParam } from "./Decorators";
 import { Injector } from "./Injector";
 

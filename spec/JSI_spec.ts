@@ -56,14 +56,21 @@ describe("jsi", () => {
   });
 
   it("allows multiple simple object registrations that do not squish each other", () => {
-    //objects can be keys for the registration
+    //factory functions can be keys in a registration
     var i = jsi.ChildScope();
     var x = { x: 1 };
     var y = { y: 2 };
-    i.Register(x, [], () => x);
-    i.Register(y, [], () => y);
-    var x2 = i.Resolve(x);
-    var y2 = i.Resolve(y);
+    function getX() {
+      return x;
+    }
+    function getY() {
+      return y;
+    }
+
+    i.Register(getX);
+    i.Register(getY);
+    var x2 = i.Resolve(getX);
+    var y2 = i.Resolve(getY);
     expect(x2).toBe(x);
     expect(y2).toBe(y);
   });

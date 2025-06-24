@@ -23,7 +23,7 @@ export class Registration {
     Util.Extend(this, options);
   }
   Key: any;
-  Factory: FactoryMethod;
+  Factory: FactoryMethod<any>;
   Instance: any;
   Dependencies: any[];
   LifetimeManager: ILifetimeManager;
@@ -44,8 +44,8 @@ export interface IRegistrationCallback {
 }
 
 export class Resolution {
-  private factory: FactoryMethod;
-  constructor(factory: FactoryMethod) {
+  private factory: FactoryMethod<any>;
+  constructor(factory: FactoryMethod<any>) {
     this.factory = factory;
   }
   GetInstance(injector: IInjector): any {

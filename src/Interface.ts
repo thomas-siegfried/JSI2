@@ -25,7 +25,8 @@ export interface IInjector {
   RegisterAutoInit(options: RegisterOptions): void;
 
   RegisterCallback(callback: IRegistrationCallback);
-  Resolve<T>(key: any): T;
+  Resolve<T>(key: Constructor<T>): T;
+  Resolve<T = any>(key: string): T;
   ChildScope(): IInjector;
   Proxy(key: any): ProxyBuilder;
 
@@ -37,13 +38,9 @@ export interface IInjector {
   CreateScopedContext(): Injector;
 }
 
-export interface FactoryMethod {
-  (...params: any[]): any;
-}
+export type FactoryMethod<T> = (...params: any[]) => T;
 
-export interface Constructor<T> {
-  new (...args: any[]): T;
-}
+export type Constructor<T> = new (...args: any[]) => T;
 
 export interface ResolverFactoryMethod {
   (injector?: Injector): any;
