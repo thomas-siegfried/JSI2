@@ -1,6 +1,6 @@
 //TODO: Wildcard mapping for properties and types, so that we can 'mask' types for unit testing
 //Jasmine specific extensions (different library) for unit test helpers
-import { ProxySymbol } from "./Symbols";
+import { ProxySymbol } from "./Symbols.js";
 export const WILDCARD = "*";
 export class ProxyFactory {
   _map: Map<any, ProxyBuilder> = new Map<any, ProxyBuilder>();

@@ -1,9 +1,9 @@
-import { lifetimeSymbol, InjectSymbol } from "./Symbols";
+import { lifetimeSymbol, InjectSymbol } from "./Symbols.js";
 import {
   PerContextLifetimeManager,
   PerRequestLifetimeManager,
-} from "./Lifetime";
-import { Root } from "./index";
+} from "./Lifetime.js";
+import { Root } from "./index.js";
 
 //Adds injection metadata from constructor parameters
 export function Inject(...params: any[]) {

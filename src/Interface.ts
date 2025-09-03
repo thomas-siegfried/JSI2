@@ -5,10 +5,10 @@ import {
   Resolution,
   Util,
   RegisterOptions,
-} from "./Utilities";
+} from "./Utilities.js";
 
-import { ProxyBuilder } from "./Proxy";
-import { Injector } from "./Injector";
+import { ProxyBuilder } from "./Proxy.js";
+import { Injector } from "./Injector.js";
 
 export interface IInjector {
   //key,dependencies,factory,lifetimemanager,instance

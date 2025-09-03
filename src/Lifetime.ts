@@ -1,5 +1,5 @@
-import { Injector } from "./Injector";
-import { FactoryMethod, ResolverFactoryMethod } from "./Interface";
+import { Injector } from "./Injector.js";
+import { FactoryMethod, ResolverFactoryMethod } from "./Interface.js";
 
 export interface ILifetimeManager {
   GetFactory(factory: any): ResolverFactoryMethod;

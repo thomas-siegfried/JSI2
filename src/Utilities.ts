@@ -1,5 +1,5 @@
-import { ILifetimeManager } from "./Lifetime";
-import { FactoryMethod, IInjector } from "./Interface";
+import { ILifetimeManager } from "./Lifetime.js";
+import { FactoryMethod, IInjector } from "./Interface.js";
 //provides a way to hook into the Resolve pipeline in order for diagnostic purposes
 export class ResolveCallbacks {
   Resolve: (key: any, buildStack: Array<any>) => void;

@@ -1,5 +1,5 @@
-import { Inject } from "./Decorators";
-import { Injector } from "./Injector";
+import { Inject } from "./Decorators.js";
+import { Injector } from "./Injector.js";
 
 @Inject(Injector)
 export class Lazy {

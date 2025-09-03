@@ -5,16 +5,16 @@ import {
   Resolution,
   Util,
   RegisterOptions,
-} from "./Utilities";
-import { lifetimeSymbol, InjectSymbol, ProxySymbol } from "./Symbols";
-import { ProxyFactory, ProxyBuilder } from "./Proxy";
-import { Constructor, FactoryMethod, IInjector } from "./Interface";
+} from "./Utilities.js";
+import { lifetimeSymbol, InjectSymbol, ProxySymbol } from "./Symbols.js";
+import { ProxyFactory, ProxyBuilder } from "./Proxy.js";
+import { Constructor, FactoryMethod, IInjector } from "./Interface.js";
 import {
   ILifetimeManager,
   SingletonLifetimeManager,
   PerRequestLifetimeManager,
   PerContextLifetimeManager,
-} from "./Lifetime";
+} from "./Lifetime.js";
 
 export class Injector implements IInjector {
   constructor(

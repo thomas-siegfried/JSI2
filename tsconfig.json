@@ -10,8 +10,8 @@
     "strictNullChecks": false,
     "noImplicitThis": false,
     "outDir": "./dist",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "declaration": true,
     "declarationDir": "./dist/types",
     "sourceMap": false

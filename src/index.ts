@@ -1,11 +1,11 @@
-export * from "./Injector";
-export * from "./Decorators";
-export * from "./Utilities";
-export * from "./Lifetime";
-export * from "./Lazy";
-export * from "./Interface";
-import { Inject, InjectParam } from "./Decorators";
-import { Injector } from "./Injector";
+export * from "./Injector.js";
+export * from "./Decorators.js";
+export * from "./Utilities.js";
+export * from "./Lifetime.js";
+export * from "./Lazy.js";
+export * from "./Interface.js";
+import { Inject, InjectParam } from "./Decorators.js";
+import { Injector } from "./Injector.js";
 
 //capture global context
 

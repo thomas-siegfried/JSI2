@@ -1,9 +1,16 @@
 {
   "name": "@thomas-siegfried/jsi",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "files": [
     "dist/**/*.js",
     "dist/types/**/*.d.ts"
