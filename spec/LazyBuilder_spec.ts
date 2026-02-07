@@ -1,5 +1,5 @@
-import { Injector, Inject } from "../src";
-import { Lazy } from "../src/Lazy";
+import { Injector, Inject } from "../src/index.js";
+import { Lazy } from "../src/Lazy.js";
 
 @Inject(Lazy)
 class ServiceC {

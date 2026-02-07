@@ -3,9 +3,9 @@ import {
   PropertyGetter,
   ProxyBuilder,
   WILDCARD,
-} from "../src/Proxy";
-import { Person, SimplePerson, Service } from "./SampleTypes";
-import { SingletonLifetimeManager } from "../src";
+} from "../src/Proxy.js";
+import { Person, SimplePerson, Service } from "./SampleTypes.js";
+import { SingletonLifetimeManager } from "../src/index.js";
 describe("ProxyFactory", () => {
   it("It creates a proxybuilder if not exist for the given key", () => {
     var pf = new ProxyFactory();

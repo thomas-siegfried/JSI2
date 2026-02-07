@@ -1,5 +1,5 @@
-import * as JSI from "../src/index";
-import { Injector, InjectParam, Inject } from "../src/index";
+import * as JSI from "../src/index.js";
+import { Injector, InjectParam, Inject } from "../src/index.js";
 describe("Inject decorator", () => {
   var jsi: Injector;
   beforeEach(() => {

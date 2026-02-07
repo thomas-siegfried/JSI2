@@ -1,5 +1,5 @@
-import * as JSI from "../src/index";
-import { Inject, Root } from "../src/index";
+import * as JSI from "../src/index.js";
+import { Inject, Root } from "../src/index.js";
 
 import createSpy = jasmine.createSpy;
 

@@ -1,4 +1,4 @@
-import { Inject, Bootstrap, InjectParam } from "../src/index";
+import { Inject, Bootstrap, InjectParam } from "../src/index.js";
 
 export class Service {
   serviceName: string;

@@ -1,6 +1,6 @@
-import * as JSI from "../src/index";
+import * as JSI from "../src/index.js";
 import createSpy = jasmine.createSpy;
-import { SimplePerson, Person, Service } from "./SampleTypes";
+import { SimplePerson, Person, Service } from "./SampleTypes.js";
 declare const window: any, global: any;
 //either the window, or empty global for testing.
 const _global: any = (0, eval)("this");

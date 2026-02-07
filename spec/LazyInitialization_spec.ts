@@ -1,4 +1,4 @@
-import { Root, Injector, Inject, Transient, Lazy } from "../src/index";
+import { Root, Injector, Inject, Transient, Lazy } from "../src/index.js";
 
 class Service {}
 

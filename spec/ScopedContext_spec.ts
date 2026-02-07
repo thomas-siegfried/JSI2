@@ -1,4 +1,4 @@
-import { Injector, PerContext, Transient } from "../src";
+import { Injector, PerContext, Transient } from "../src/index.js";
 //singleton, default
 class ClassA {}
 @Transient

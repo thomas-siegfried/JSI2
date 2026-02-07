@@ -1,13 +1,13 @@
-import * as JSI from "../src/index";
-import { Injector, InjectParam, Inject } from "../src/index";
+import * as JSI from "../src/index.js";
+import { Injector, InjectParam, Inject } from "../src/index.js";
 import {
   Service,
   Person,
   PersonNamer,
   ServiceClient,
   SubService,
-} from "./SampleTypes";
-import { Person as Prs } from "./SampleTypes";
+} from "./SampleTypes.js";
+import { Person as Prs } from "./SampleTypes.js";
 
 describe("SampleTypes", () => {
   var jsi: Injector;

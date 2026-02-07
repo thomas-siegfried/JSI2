@@ -1,4 +1,4 @@
-import { Bootstrap, Root, Injector } from "../src";
+import { Bootstrap, Root, Injector } from "../src/index.js";
 
 describe("bootstrap behavior", () => {
   class MyClass {
