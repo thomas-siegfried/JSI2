@@ -376,12 +376,21 @@ export class Injector implements IInjector {
   public Proxy(key: any): ProxyBuilder {
     return this._proxyFactory.builder(key);
   }
-  //child scopes share registrations with parent, but not resolutions, meaning they will never shared a created instance
+  /**
+   * Creates a child scope: shares registrations with parent but has its own resolution cache.
+   * Use when you want the same config but no shared instances (e.g. unit tests).
+   * @returns A new injector that will never share resolved instances with this one.
+   */
   public ChildScope(): Injector {
     return new Injector(this, this._global);
   }
-  //scoped context uses parent for resolutions, so will share resolutions of singleton objects
-  //TODO: we probably want to get rid of ChildScope() as this is most likely the desired behavior
+
+  /**
+   * Creates a scoped context: uses parent for registrations and resolution storage.
+   * Singletons are shared with parent; PerContext gets a new instance per scoped injector.
+   * Use for request scope, UIControl scope, or any "same app, my own scope" scenario.
+   * @returns A new injector that shares singletons with this one but has its own PerContext instances.
+   */
   public CreateScopedContext(): Injector {
     return new Injector(this, this._global, true);
   }
