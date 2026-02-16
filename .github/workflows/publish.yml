@@ -20,7 +20,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "22.14.0"
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
           # Do not set registry-url here: it would inject NPM_TOKEN and break trusted publishing (OIDC)
 
       - name: Install dependencies
