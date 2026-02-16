@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   check-and-publish:
@@ -47,5 +50,3 @@ jobs:
       - name: Publish to NPM
         if: steps.check-version.outputs.exists == 'false'
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM }}
