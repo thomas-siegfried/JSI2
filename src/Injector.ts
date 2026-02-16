@@ -318,7 +318,7 @@ export class Injector implements IInjector {
     return value;
   }
   Resolve<T>(key: Constructor<T> | FactoryMethod<T>): T;
-  Resolve<T = any>(key: string): T;
+  Resolve<T>(key: string): T;
   public Resolve<T = any>(key: any): T {
     this.invokeCallback((cb) => cb.Resolve && cb.Resolve(key, this.BuildStack));
     this.EnsureInitialized();
