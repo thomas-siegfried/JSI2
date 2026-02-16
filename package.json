@@ -5,6 +5,10 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomas-siegfried/JSI2"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
