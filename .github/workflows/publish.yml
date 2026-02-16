@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
 permissions:
   id-token: write # Required for OIDC
   contents: read
@@ -49,4 +51,8 @@ jobs:
 
       - name: Publish to NPM
         if: steps.check-version.outputs.exists == 'false'
+        env:
+          # Trusted publishing uses OIDC; do not pass NPM_TOKEN or npm will use it and fail if expired
+          NPM_TOKEN: ""
+          NPM_AUTH_TOKEN: ""
         run: npm publish
